@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Uma rosa vermelha nasce de partículas luminosas.">
+  <title>🌹</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width:100%; height:100%; padding:0; margin:0; overflow:hidden; background:#000; }
+    body { position:fixed; inset:0; background:#000; }
+    canvas { width:100%; height:100%; display:block; touch-action:manipulation; }
+  </style>
+</head>
+<body>
+<canvas id="scene" aria-label="Uma rosa vermelha luminosa aparece em uma nuvem de partículas"></canvas>
+
+<!-- Arte vetorial original: sem foto, sem arquivo externo, sem perda de resolução. -->
+<svg id="roseArt" xmlns="http://www.w3.org/2000/svg" viewBox="115 110 570 830" width="570" height="830" aria-hidden="true" style="position:absolute;pointer-events:none;width:0;height:0;opacity:0;overflow:hidden">
+ <defs>
+  <linearGradient id="stem" x1="0" x2="1" y1="0" y2="0">
+   <stop stop-color="#170509"/><stop offset=".26" stop-color="#691019"/><stop offset=".48" stop-color="#da283c"/><stop offset=".65" stop-color="#67101b"/><stop offset="1" stop-color="#140608"/>
+  </linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2=".95">
+   <stop stop-color="#db2634"/><stop offset=".19" stop-color="#7b071b"/><stop offset=".52" stop-color="#24030b"/><stop offset=".8" stop-color="#790d23"/><stop offset="1" stop-color="#1b0208"/>
+  </linearGradient>
+  <linearGradient id="leafRight" x1="0" y1="0" x2="1" y2="1">
+   <stop stop-color="#35070d"/><stop offset=".33" stop-color="#ae0d26"/><stop offset=".6" stop-color="#430411"/><stop offset="1" stop-color="#14050a"/>
+  </linearGradient>
+  <radialGradient id="back" cx=".48" cy=".28" r=".8">
+   <stop stop-color="#c50b27"/><stop offset=".3" stop-color="#86041b"/><stop offset=".7" stop-color="#42000c"/><stop offset="1" stop-color="#140108"/>
+  </radialGradient>
+  <linearGradient id="petalL" x1="0" y1="0" x2="1" y2=".7">
+   <stop stop-color="#f83549"/><stop offset=".12" stop-color="#aa0c25"/><stop offset=".42" stop-color="#5f0518"/><stop offset=".81" stop-color="#27030c"/><stop offset="1" stop-color="#9b0925"/>
+  </linearGradient>
+  <linearGradient id="petalR" x1=".92" y1="0" x2=".1" y2="1">
+   <stop stop-color="#f52c43"/><stop offset=".23" stop-color="#af0927"/><stop offset=".56" stop-color="#4a0619"/><stop offset="1" stop-color="#1a0209"/>
+  </linearGradient>
+  <linearGradient id="cup" x1=".3" y1="0" x2=".7" y2="1">
+   <stop stop-color="#d7102d"/><stop offset=".2" stop-color="#8b041b"/><stop offset=".59" stop-color="#39030d"/><stop offset=".9" stop-color="#7b0b20"/><stop offset="1" stop-color="#190208"/>
+  </linearGradient>
+  <radialGradient id="heart" cx=".52" cy=".18" r=".8">
+   <stop stop-color="#e52a3f"/><stop offset=".3" stop-color="#ac0b29"/><stop offset=".71" stop-color="#4f0618"/><stop offset="1" stop-color="#200209"/>
+  </radialGradient>
+  <linearGradient id="upper" x1=".12" y1="0" x2=".78" y2="1">
+   <stop stop-color="#fd4e5b"/><stop offset=".12" stop-color="#cb132d"/><stop offset=".52" stop-color="#640414"/><stop offset="1" stop-color="#32010b"/>
+  </linearGradient>
+  <linearGradient id="rim" x1="0" y1="0" x2=".88" y2="1">
+   <stop stop-color="#ffaaa6"/><stop offset=".15" stop-color="#ff4b59"/><stop offset=".5" stop-color="#f40f2f"/><stop offset=".85" stop-color="#ac0922"/><stop offset="1" stop-color="#fc4456"/>
+  </linearGradient>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+   <feGaussianBlur stdDeviation="4"/>
+  </filter>
+  <filter id="soft" x="-15%" y="-15%" width="130%" height="130%">
+   <feGaussianBlur stdDeviation="1.2"/>
+  </filter>
+ </defs>
+
+ <!-- CAULE: sombreado de volume e um filete de luz -->
+ <g fill="none" stroke-linecap="round">
+  <path d="M 400 516 C 411 609 404 686 415 779 S 424 886 421 929" stroke="#29050b" stroke-width="16"/>
+  <path d="M 400 516 C 411 609 404 686 415 779 S 424 886 421 929" stroke="url(#stem)" stroke-width="10"/>
+  <path d="M 398 538 C 407 638 403 714 413 793 S 421 882 419 924" stroke="#fc3548" stroke-width="1.4" opacity=".75"/>
+  <path d="M 403 636 C 396 651 388 658 384 661 M 410 745 C 426 748 431 759 437 761 M 419 852 C 412 865 405 872 402 874" stroke="#930f25" stroke-width="5"/>
+ </g>
+ <!-- galhos e folhas, preenchimento escuro com nervuras vermelhas -->
+ <g stroke-linejoin="round">
+  <path d="M408 705 Q346 664 273 655" fill="none" stroke="#780d1e" stroke-width="6" stroke-linecap="round"/>
+  <path d="M414 779 Q465 711 533 687" fill="none" stroke="#880f20" stroke-width="6" stroke-linecap="round"/>
+  <path d="M421 851 Q457 816 507 817" fill="none" stroke="#5b0b18" stroke-width="4" stroke-linecap="round"/>
+
+  <path d="M279 653 C244 607 184 590 128 609 C158 626 172 644 187 663 C156 666 145 679 139 692 C180 703 236 718 279 653Z" fill="url(#leaf)" stroke="#8c0a1e" stroke-width="2"/>
+  <path d="M279 653 Q212 639 139 612 M244 648 Q215 630 213 609 M221 654 Q189 658 170 665 M247 666 Q210 682 174 694" fill="none" stroke="#e3354c" stroke-width="1.7" opacity=".8"/>
+  <path d="M533 687 C564 629 620 606 660 604 C647 630 635 654 618 667 C647 670 660 683 662 691 C627 714 575 730 533 687Z" fill="url(#leafRight)" stroke="#9d1227" stroke-width="2"/>
+  <path d="M533 687 Q596 663 650 614 M576 673 Q600 644 608 625 M584 683 Q611 691 649 689 M553 699 Q577 707 596 710" fill="none" stroke="#e12b47" stroke-width="1.6" opacity=".83"/>
+  <path d="M507 818 C534 792 569 789 604 800 C578 807 572 816 563 831 C583 834 592 842 597 849 C565 862 527 858 507 818Z" fill="url(#leaf)" stroke="#760c19" stroke-width="1.7"/>
+  <path d="M507 818 Q548 822 592 800 M542 824 Q554 805 566 801 M541 832 L575 846" fill="none" stroke="#d32941" stroke-width="1.4" opacity=".7"/>
+  <path d="M401 705 Q361 675 279 653 M414 779 Q474 702 532 688" fill="none" stroke="#e53649" stroke-width="1.1" opacity=".8"/>
+ </g>
+
+ <!-- BASE da flor: sépalas inclinadas e cálice -->
+ <g>
+  <path d="M375 501 Q358 529 323 556 Q365 544 397 536 L417 545 Q445 547 475 557 Q452 534 428 502Z" fill="#4f0612" stroke="#a71a30" stroke-width="2"/>
+  <path d="M400 520 Q393 550 398 573 Q411 552 411 520Z" fill="url(#stem)"/>
+  <path d="M396 521 Q371 538 343 539 M416 522 Q445 546 464 550" fill="none" stroke="#eb2940" stroke-width="1.8" opacity=".86"/>
+ </g>
+
+ <!-- ROSA em volume: pétalas de trás para frente -->
+ <g stroke-linejoin="round">
+  <!-- silhueta profunda -->
+  <path d="M402 229 C476 195 545 232 560 307 C593 324 591 377 565 428 C558 497 504 535 444 549 C399 569 331 543 294 500 C249 472 220 416 235 370 C221 322 255 279 298 270 C320 234 364 214 402 229Z" fill="url(#back)" stroke="#690519" stroke-width="3"/>
+
+  <!-- pétalas do fundo -->
+  <path d="M383 304 C348 251 301 241 271 274 C235 310 243 360 266 398 C290 378 320 382 356 402 L405 395Z" fill="url(#petalL)" stroke="#aa122c" stroke-width="2"/>
+  <path d="M410 300 C448 239 510 229 550 283 C577 317 559 373 537 412 C516 397 470 397 434 413 L388 387Z" fill="url(#petalR)" stroke="#ab0c27" stroke-width="2"/>
+  <path d="M289 410 C248 388 232 401 245 450 C270 504 326 543 396 548 C359 498 351 448 289 410Z" fill="url(#petalL)" stroke="#930d23" stroke-width="2"/>
+  <path d="M514 408 C554 377 586 394 569 456 C550 514 487 542 406 550 C454 505 459 444 514 408Z" fill="url(#petalR)" stroke="#a40a24" stroke-width="2"/>
+
+  <!-- cálice largo / pétalas do meio -->
+  <path d="M272 360 C280 337 303 329 330 339 C340 371 370 392 396 399 C351 419 328 453 322 485 C280 457 256 404 272 360Z" fill="url(#cup)" stroke="#9a1029" stroke-width="2"/>
+  <path d="M532 355 C520 326 493 324 472 338 C461 367 438 392 403 407 C452 433 471 463 476 489 C523 460 546 412 532 355Z" fill="url(#cup)" stroke="#b3132c" stroke-width="2"/>
+  <path d="M331 404 C353 423 378 431 400 426 C423 435 448 427 470 403 C472 456 458 504 408 529 C365 516 340 478 331 404Z" fill="url(#heart)" stroke="#700718" stroke-width="2"/>
+
+  <!-- pétala virada à esquerda / sombra inferior -->
+  <path d="M275 364 C259 348 244 350 241 373 C237 404 283 441 337 435 C362 431 379 416 399 400 C354 409 316 393 296 376 C288 369 282 365 275 364Z" fill="url(#upper)" stroke="#b9112c" stroke-width="2"/>
+  <!-- pétala virada à direita -->
+  <path d="M521 349 C543 334 562 337 562 359 C567 392 516 433 462 440 C438 442 416 425 400 404 C446 405 482 382 504 360 C513 354 515 352 521 349Z" fill="url(#upper)" stroke="#bc132a" stroke-width="2"/>
+
+  <!-- camada superior, pétalas de bordas dobradas -->
+  <path d="M297 323 C286 279 324 251 372 259 C386 271 391 297 392 339 C367 360 345 366 321 348 Q308 341 297 323Z" fill="url(#petalL)" stroke="#c31b35" stroke-width="2"/>
+  <path d="M508 324 C528 276 493 247 447 256 C422 266 415 292 414 338 C443 356 467 364 486 350 Q499 337 508 324Z" fill="url(#petalR)" stroke="#bc122b" stroke-width="2"/>
+  <path d="M350 274 C362 238 395 217 420 239 C436 236 466 251 470 281 C468 307 450 334 423 346 C403 330 376 317 350 274Z" fill="url(#upper)" stroke="#c41934" stroke-width="2"/>
+
+  <!-- pequena volta espiralada do centro -->
+  <path d="M358 293 C368 281 380 277 397 288 C416 274 445 287 449 305 C451 333 415 350 393 342 C375 337 369 324 381 316 C389 309 400 310 409 316" fill="url(#heart)" stroke="#a70e28" stroke-width="2.5"/>
+  <path d="M385 309 C380 290 404 281 418 292 C425 299 421 312 410 315 C400 316 397 306 405 304" fill="none" stroke="#ed2e46" stroke-width="3" stroke-linecap="round"/>
+  <path d="M356 300 C360 319 383 342 401 356 C420 344 448 328 452 307 C445 350 420 368 402 376 C379 366 359 343 356 300Z" fill="url(#cup)" stroke="#840c23" stroke-width="1.6"/>
+
+  <!-- topo com pétalas amplas sobrepostas e abas iluminadas -->
+  <path d="M289 320 C291 302 312 292 329 299 C358 317 376 357 405 368 C366 375 325 359 304 341Z" fill="url(#upper)" stroke="#dd213b" stroke-width="2"/>
+  <path d="M512 319 C509 305 488 292 474 302 C455 318 433 351 401 369 C434 381 486 359 507 336Z" fill="url(#upper)" stroke="#d31d38" stroke-width="2"/>
+  <!-- frente da rosa: pétala em forma de taça -->
+  <path d="M276 389 C305 404 339 420 398 425 C457 416 494 403 530 388 C520 453 478 507 402 526 C332 507 289 456 276 389Z" fill="url(#cup)" stroke="#b51630" stroke-width="3"/>
+  <path d="M276 389 C301 412 342 435 398 439 C457 437 503 407 530 388 C491 458 435 476 399 479 C357 477 309 454 276 389Z" fill="url(#petalL)" opacity=".55"/>
+
+  <!-- Arestas luminosas das pétalas, em camadas -->
+  <g fill="none" stroke="url(#rim)" stroke-linecap="round">
+   <path d="M271 348 Q260 322 279 293 Q298 255 334 261" stroke-width="2.6" opacity=".9"/>
+   <path d="M288 324 Q308 301 331 309 C352 326 369 361 402 368" stroke-width="2.7"/>
+   <path d="M511 321 Q494 303 475 310 C451 338 425 360 402 368" stroke-width="2.7"/>
+   <path d="M466 257 Q496 240 526 270 Q547 291 545 310" stroke-width="2.5" opacity=".85"/>
+   <path d="M352 269 C368 238 394 224 420 237 C445 226 469 255 470 281" stroke-width="2.5"/>
+   <path d="M358 294 Q381 276 400 289 Q428 277 446 297" stroke-width="2"/>
+   <path d="M261 362 Q235 342 241 376 C248 410 284 437 337 435" stroke-width="3.2"/>
+   <path d="M539 350 Q561 333 563 363 C560 399 506 440 461 439" stroke-width="3"/>
+   <path d="M275 389 C303 418 350 437 398 440 C455 439 506 411 530 388" stroke-width="3.4"/>
+   <path d="M288 454 C313 490 354 521 401 526 C445 511 485 482 507 442" stroke-width="1.9" opacity=".66"/>
+   <path d="M300 486 C332 521 370 542 404 547 Q471 537 506 503" stroke-width="2" opacity=".8"/>
+  </g>
+  <!-- ranhuras finas das pétalas -->
+  <g fill="none" stroke="#ff5b6b" stroke-linecap="round" opacity=".56">
+   <path d="M313 324 C326 350 348 366 367 375" stroke-width="1.2"/>
+   <path d="M488 327 Q466 351 443 371" stroke-width="1.3"/>
+   <path d="M278 377 Q302 400 343 408" stroke-width="1.2"/>
+   <path d="M521 375 Q498 400 462 407" stroke-width="1.1"/>
+   <path d="M327 465 Q355 490 390 495" stroke-width="1"/>
+   <path d="M474 466 Q447 493 412 501" stroke-width="1.2"/>
+   <path d="M376 283 Q385 263 402 261" stroke-width="1.1"/>
+   <path d="M425 278 Q438 264 451 267" stroke-width="1.1"/>
+  </g>
+ </g>
+</svg>
+<script>
+(() => {
+ 'use strict';
+ const canvas = document.getElementById('scene');
+ const ctx = canvas.getContext('2d', {alpha:false});
+ const art = document.getElementById('roseArt');
+ const ART_W = 570, ART_H = 830;
+ let dpr=1, width=0, height=0, drawW=0, drawH=0, left=0, top=0;
+ let particles=[], dust=[], bitmap=null, generation=0, startAt=performance.now(), loaded=false;
+ const DURATION=5700;
+ const rnd=(a,b)=>Math.random()*(b-a)+a;
+ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+ const smooth=t=>t*t*(3-2*t);
+ const ease=t=>1-Math.pow(1-t,3);
+ const prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+ function resize() {
+   const oldW=width, oldH=height;
+   width=window.innerWidth;
+   height=window.innerHeight;
+   dpr=Math.min(window.devicePixelRatio||1,2);
+   canvas.width=Math.max(1,Math.round(width*dpr));
+   canvas.height=Math.max(1,Math.round(height*dpr));
+   canvas.style.width=width+'px';canvas.style.height=height+'px';
+   ctx.setTransform(dpr,0,0,dpr,0,0);
+   const k=Math.min(width*.96/ART_W, height*.94/ART_H, 1.18);
+   drawW=ART_W*k; drawH=ART_H*k;
+   left=(width-drawW)/2; top=(height-drawH)/2;
+   if(loaded && (oldW!==width || oldH!==height)) seed();
+ }
+
+ function seed() {
+   if(!bitmap)return;
+   const sample=document.createElement('canvas');
+   sample.width=ART_W; sample.height=ART_H;
+   const sc=sample.getContext('2d',{willReadFrequently:true});
+   sc.drawImage(bitmap,0,0,ART_W,ART_H);
+   const pix=sc.getImageData(0,0,ART_W,ART_H).data;
+   const candidates=[];
+   const step=width<560 ? 4 : 3;
+   for(let y=0;y<ART_H;y+=step){
+     for(let x=0;x<ART_W;x+=step){
+       let px=x+(Math.random()*step|0), py=y+(Math.random()*step|0);
+       let idx=(py*ART_W+px)*4;
+       const alpha=pix[idx+3];
+       if(alpha<55)continue;
+       const luminance=Math.max(pix[idx],pix[idx+1]*1.4);
+       if(Math.random()>.42+luminance/520)continue;
+       candidates.push({x:px,y:py,r:pix[idx],g:pix[idx+1],b:pix[idx+2],a:alpha/255});
+     }
+   }
+   for(let i=candidates.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[candidates[i],candidates[j]]=[candidates[j],candidates[i]];}
+   const cap=width<560 ? 3500 : 5600;
+   const k=drawW/ART_W;
+   particles=candidates.slice(0,cap).map(p=>{
+     const tx=left+p.x*k, ty=top+p.y*k;
+     const a=rnd(0,Math.PI*2), radius=rnd(45,Math.min(width,height)*.57+90);
+     const sx=tx+Math.cos(a)*radius, sy=ty+Math.sin(a)*radius;
+     let bloom=p.y<450 && p.y>70;
+     let group=bloom?1:(p.y>530?0:1);
+     return {tx,ty,sx,sy,x:sx,y:sy,vel:0,group,start:rnd(.15,2.0)+(group?0.7:0),length:rnd(1.9,3.6),
+       r:p.r,g:p.g,b:p.b,a:p.a,size:rnd(.5,1.6),phase:rnd(0,6.28)};
+   });
+   dust=Array.from({length:width<560?65:100},()=>({
+     x:rnd(0,width),y:rnd(0,height),speed:rnd(.12,.6),r:rnd(.4,1.8),phase:rnd(0,6.28),opacity:rnd(.08,.37)
+   }));
+   startAt=performance.now();
+   generation++;
+ }
+
+ function render(now){
+   ctx.setTransform(dpr,0,0,dpr,0,0);
+   ctx.fillStyle='#000';ctx.fillRect(0,0,width,height);
+   if(!bitmap){requestAnimationFrame(render);return;}
+   const t=prefersReduced?DURATION/1000:(now-startAt)/1000;
+   const settling=smooth(clamp((t-3.3)/2.2));
+   const reveal=smooth(clamp((t-3.6)/1.55));
+   // Uma arte vetorial, nítida em qualquer resolução, toma o lugar dos pontos ao final.
+   if(reveal>0){
+     ctx.save();ctx.globalAlpha=reveal;
+     ctx.shadowColor='#d50929';ctx.shadowBlur=10;
+     ctx.drawImage(bitmap,left,top,drawW,drawH);
+     ctx.restore();
+   }
+   ctx.save();ctx.globalCompositeOperation='lighter';
+   for(let i=0;i<particles.length;i++){
+     const p=particles[i];
+     let u=clamp((t-p.start)/p.length);
+     const e=ease(u);
+     const drift=(1-e)*Math.sin(now*.003+p.phase)*11;
+     const x=p.sx+(p.tx-p.sx)*e+drift;
+     const y=p.sy+(p.ty-p.sy)*e+(1-e)*Math.cos(now*.002+p.phase)*10;
+     let fadeIn=smooth(clamp(u*8));
+     let fadeOut=1-smooth(clamp((t-4.2)/1.3));
+     const alpha=p.a*fadeIn*fadeOut;
+     if(alpha<=.007)continue;
+     let rad=p.size*(.5+Math.min(1,drawW/400));
+     ctx.fillStyle=`rgba(${Math.max(p.r,160)},${p.g},${p.b},${alpha})`;
+     ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);ctx.fill();
+     if(i%9===0){
+       ctx.shadowColor='#ff243f';ctx.shadowBlur=6;
+       ctx.fillRect(x-.45,y-.45,.9,.9);
+       ctx.shadowBlur=0;
+     }
+   }
+   // Algumas fagulhas continuam flutuando suavemente, sem esconder o desenho.
+   const ambient=smooth(clamp((t-.5)/2));
+   for(const p of dust){
+     let x=p.x+Math.sin(t*p.speed+p.phase)*25;
+     let y=(p.y-t*p.speed*19+height*5)%height;
+     let blink=.45+.55*Math.sin(t*2+p.phase);
+     ctx.fillStyle=`rgba(255,30,48,${ambient*p.opacity*blink})`;
+     ctx.beginPath();ctx.arc(x,y,p.r,0,Math.PI*2);ctx.fill();
+   }
+   // Brilhos pontuais, mas sem cobrir as linhas da rosa.
+   if(t>3.8){
+     const sparkleAlpha=smooth(clamp((t-3.8)/1.2));
+     for(let i=0;i<16;i++){
+       const p=particles[(i*347)%particles.length];
+       if(!p)continue;
+       const pulse=Math.pow(Math.max(0,Math.sin(t*1.7+i*2.2)),10);
+       if(pulse<.1)continue;
+       let len=(2+pulse*2.2)*Math.min(drawW/340,1.5);
+       ctx.strokeStyle=`rgba(255,106,116,${.38*pulse*sparkleAlpha})`;
+       ctx.lineWidth=.8;
+       ctx.beginPath();ctx.moveTo(p.tx-len,p.ty);ctx.lineTo(p.tx+len,p.ty);
+       ctx.moveTo(p.tx,p.ty-len);ctx.lineTo(p.tx,p.ty+len);ctx.stroke();
+     }
+   }
+   ctx.restore();
+   requestAnimationFrame(render);
+ }
+
+ function loadArt(){
+   const svgCopy=art.cloneNode(true);
+   svgCopy.removeAttribute('style');
+   svgCopy.setAttribute('width',ART_W);
+   svgCopy.setAttribute('height',ART_H);
+   const markup=new XMLSerializer().serializeToString(svgCopy);
+   const image=new Image();
+   image.onload=()=>{bitmap=image;loaded=true;seed();};
+   image.onerror=()=>{art.style.cssText='position:absolute;inset:0;margin:auto;width:min(95vw,600px);height:min(95vh,850px);opacity:1';};
+   image.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(markup);
+ }
+ window.addEventListener('resize',resize,{passive:true});
+ document.addEventListener('pointerdown',()=>{if(loaded)seed();},{passive:true});
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden && loaded)startAt=performance.now()-DURATION;});
+ resize();loadArt();requestAnimationFrame(render);
+})();
+</script>
+</body>
+</html>
